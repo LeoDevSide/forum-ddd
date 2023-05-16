@@ -75,6 +75,10 @@ export class Question extends Entity<QuestionProps> {
     this.props.updatedAt = new Date()
   }
 
+  private defineBestAnswer(answerId: string) {
+    this.props.bestAnswerId = new UniqueEntityID(answerId)
+  }
+
   static create(
     props: Optional<QuestionProps, 'createdAt'>,
     id?: UniqueEntityID,
