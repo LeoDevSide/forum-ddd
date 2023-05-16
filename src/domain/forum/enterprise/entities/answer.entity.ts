@@ -1,6 +1,6 @@
-import { Entity } from '../../core/entities/entity'
-import { UniqueEntityID } from '../../core/entities/value-objects/unique-entity-id.value-object'
-import { Optional } from '../../core/types/optional'
+import { Entity } from '../../../../core/entities/entity'
+import { UniqueEntityID } from '../../../../core/entities/value-objects/unique-entity-id.value-object'
+import { Optional } from '../../../../core/types/optional'
 
 interface AnswerProps {
   content: string

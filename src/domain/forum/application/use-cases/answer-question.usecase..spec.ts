@@ -1,4 +1,4 @@
-import { Answer } from '../entities/answer.entity'
+import { Answer } from '../../enterprise/entities/answer.entity'
 import { AnswersRepository } from '../repositories/answer-repository'
 import { AnswerQuestionUseCase } from './answer-question.usecase'
 import { expect, test } from 'vitest'
