@@ -1,4 +1,5 @@
 import { Answer } from '../entities/answer'
+import { AnswersRepository } from '../repositories/answer-repository'
 
 interface AnswerQuestionUseCaseInputDto {
   instuctorId: string
@@ -7,6 +8,7 @@ interface AnswerQuestionUseCaseInputDto {
 }
 
 export class AnswerQuestionUseCase {
+  constructor(private answersRepository: AnswersRepository) {}
   execute({ instuctorId, questionId, content }: AnswerQuestionUseCaseInputDto) {
     const answer = new Answer({
       content,
