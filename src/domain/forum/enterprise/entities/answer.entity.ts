@@ -16,11 +16,11 @@ export class Answer extends Entity<AnswerProps> {
   }
 
   get questionId() {
-    return this.props.questionId
+    return this.props.questionId.toValue()
   }
 
   get authorId() {
-    return this.props.authorId
+    return this.props.authorId.toValue()
   }
 
   get createdAt() {
@@ -33,11 +33,6 @@ export class Answer extends Entity<AnswerProps> {
 
   get excerpt() {
     return this.content.substring(0, 120).trimEnd().concat('...') // preview of first 120 characters
-  }
-
-  private setInitialContent(content: string) {
-    this.props.content = content
-    this.touch()
   }
 
   private updateContent(content: string) {
