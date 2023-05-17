@@ -35,7 +35,7 @@ export class Answer extends Entity<AnswerProps> {
     return this.content.substring(0, 120).trimEnd().concat('...') // preview of first 120 characters
   }
 
-  private updateContent(content: string) {
+  public updateContent(content: string) {
     this.props.content = content
     this.touch()
   }

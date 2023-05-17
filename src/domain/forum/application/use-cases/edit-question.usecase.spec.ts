@@ -46,4 +46,21 @@ describe('Edit Question UseCase Unit Test', () => {
     expect(getUpdatedEntity?.slug).toEqual('edited-title')
     expect(getUpdatedEntity?.excerpt).toEqual('Edited content...')
   })
+
+  it('should not be able to update a question from different users', async () => {
+    const questionEntity = ExampleQuestionEntityFactory.create({
+      content: 'Example content',
+      title: 'Title example',
+      authorId: new UniqueEntityID('2'),
+    })
+    await inMemoryRepository.create(questionEntity)
+    await expect(
+      useCase.execute({
+        authorId: '3',
+        questionId: questionEntity.id.value,
+        content: 'Edited content',
+        title: 'Edited title',
+      }),
+    ).rejects.toBeInstanceOf(Error)
+  })
 })
