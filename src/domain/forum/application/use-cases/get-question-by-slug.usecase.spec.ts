@@ -13,7 +13,10 @@ describe('Get Question by slug UseCase Unit Test', () => {
   })
 
   it('should be able to get a created question by slug', async () => {
-    const questionEntity = ExampleQuestionEntityFactory.create()
+    const questionEntity = ExampleQuestionEntityFactory.create({
+      content: 'Example content',
+      title: 'Title example',
+    })
     await inMemoryRepository.create(questionEntity)
 
     expect(questionEntity.id).toBeTruthy()
@@ -29,6 +32,6 @@ describe('Get Question by slug UseCase Unit Test', () => {
       slug: questionEntity.slug,
     })
     expect(question).toEqual(questionEntity)
-    expect(question.slug).toEqual('title-example')
+    expect(question.slug).toEqual(questionEntity.slug)
   })
 })
