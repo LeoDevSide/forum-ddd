@@ -1,3 +1,4 @@
+import { PaginationParams } from '../../src/core/repositories/pagination-params'
 import { IQuestionsRepository } from '../../src/domain/forum/application/repositories/question-repository'
 import { Question } from '../../src/domain/forum/enterprise/entities/question.entity'
 
@@ -33,5 +34,12 @@ export class InMemoryQuestionsRepository implements IQuestionsRepository {
     if (questionIndex >= 0) {
       this.items[questionIndex] = question
     } // findIndex returns -1 when not found
+  }
+
+  async findManyRecent(params: PaginationParams): Promise<Question[]> {
+    const questions = this.items
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice((params.page - 1) * 20, params.page * 20)
+    return questions
   }
 }
