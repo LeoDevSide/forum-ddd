@@ -7,15 +7,21 @@ export class InMemoryQuestionsRepository implements IQuestionsRepository {
     this.items.push(question)
   }
 
+  async findById(id: string): Promise<Question | null> {
+    const question = this.items.find((question) => question.id.value === id)
+    if (!question) return null
+    return question
+  }
+
   async findBySlug(slug: string): Promise<Question | null> {
     const question = this.items.find((question) => question.slug === slug)
     if (!question) return null
     return question
   }
 
-  async deleteById(id: string): Promise<void> {
+  async delete(question: Question): Promise<void> {
     const questionIndexToRemove = this.items.findIndex(
-      (question) => question.id.value === id,
+      (item) => item.id.value === question.id.value,
     )
     this.items.splice(questionIndexToRemove, 1)
   }

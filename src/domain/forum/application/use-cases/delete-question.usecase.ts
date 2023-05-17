@@ -7,6 +7,8 @@ interface DeleteQuestionUseCaseInputDto {
 export class DeleteQuestionUseCase {
   constructor(private questionsRepository: IQuestionsRepository) {}
   async execute(input: DeleteQuestionUseCaseInputDto): Promise<void> {
-    await this.questionsRepository.deleteById(input.questionId)
+    const question = await this.questionsRepository.findById(input.questionId)
+    if (!question) throw new Error('Question not found')
+    await this.questionsRepository.delete(question)
   }
 }
