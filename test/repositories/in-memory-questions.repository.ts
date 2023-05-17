@@ -12,4 +12,11 @@ export class InMemoryQuestionsRepository implements IQuestionsRepository {
     if (!question) return null
     return question
   }
+
+  async deleteById(id: string): Promise<void> {
+    const questionIndexToRemove = this.items.findIndex(
+      (question) => question.id.value === id,
+    )
+    this.items.splice(questionIndexToRemove, 1)
+  }
 }
