@@ -16,11 +16,11 @@ export class Answer extends Entity<AnswerProps> {
   }
 
   get questionId() {
-    return this.props.questionId.toValue()
+    return this.props.questionId.value
   }
 
   get authorId() {
-    return this.props.authorId.toValue()
+    return this.props.authorId.value
   }
 
   get createdAt() {
