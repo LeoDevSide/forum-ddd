@@ -1,3 +1,4 @@
+import { PaginationParams } from '../../src/core/repositories/pagination-params'
 import { IAnswersRepository } from '../../src/domain/forum/application/repositories/answer-repository'
 import { Answer } from '../../src/domain/forum/enterprise/entities/answer.entity'
 
@@ -26,5 +27,15 @@ export class InMemoryAnswersRepository implements IAnswersRepository {
     if (answerIndex >= 0) {
       this.items[answerIndex] = answer
     } // findIndex returns -1 when not found
+  }
+
+  async findManyByQuestionId(
+    questionId: string,
+    params: PaginationParams,
+  ): Promise<Answer[]> {
+    const answers = this.items
+      .filter((item) => item.questionId === questionId)
+      .slice((params.page - 1) * 20, params.page * 20)
+    return answers
   }
 }
