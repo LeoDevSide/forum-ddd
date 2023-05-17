@@ -56,7 +56,7 @@ export class Question extends Entity<QuestionProps> {
     this.touch()
   }
 
-  private updateContent(content: string) {
+  public updateContent(content: string) {
     this.props.content = content
     this.touch()
   }
@@ -66,8 +66,9 @@ export class Question extends Entity<QuestionProps> {
     this.touch()
   }
 
-  private updateTitle(title: string) {
+  public updateTitle(title: string) {
     this.props.title = title
+    this.props.slug = Slug.createFromText(title)
     this.touch()
   }
 
