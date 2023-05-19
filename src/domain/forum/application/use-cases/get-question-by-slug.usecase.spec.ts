@@ -28,10 +28,13 @@ describe('Get Question by slug UseCase Unit Test', () => {
     expect(questionEntity.isNew).toBe(true)
     expect(questionEntity.bestAnswerId).toBe(undefined)
 
-    const { question } = await useCase.execute({
+    const result = await useCase.execute({
       slug: questionEntity.slug,
     })
-    expect(question).toEqual(questionEntity)
-    expect(question.slug).toEqual(questionEntity.slug)
+    expect(result.isRight()).toBe(true)
+    console.log(result.isRight()) // true
+
+    expect(result.value?.question).toEqual(questionEntity)
+    expect(result.value?.question.slug).toEqual(questionEntity.slug)
   })
 })

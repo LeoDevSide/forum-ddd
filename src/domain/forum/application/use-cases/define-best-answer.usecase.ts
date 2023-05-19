@@ -1,18 +1,21 @@
 import { IQuestionsRepository } from '../repositories/question-repository'
 import { IAnswersRepository } from '../repositories/answer-repository'
+import { Either, right } from '../../../../core/either'
 
 interface DefineBestAnswerUseCaseInputDto {
   answerId: string
   authorId: string
 }
-
+type DefineBestAnswerUseCaseOutputDto = Either<null, {}>
 export class DefineBestAnswerUseCase {
   constructor(
     private questionsRepository: IQuestionsRepository,
     private answersRepository: IAnswersRepository,
   ) {}
 
-  async execute(input: DefineBestAnswerUseCaseInputDto): Promise<void> {
+  async execute(
+    input: DefineBestAnswerUseCaseInputDto,
+  ): Promise<DefineBestAnswerUseCaseOutputDto> {
     const answer = await this.answersRepository.findById(input.answerId)
     if (!answer) throw new Error('Answer not found')
 
@@ -25,5 +28,6 @@ export class DefineBestAnswerUseCase {
     question.defineBestAnswer(input.answerId)
 
     await this.questionsRepository.save(question)
+    return right({})
   }
 }

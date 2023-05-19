@@ -12,17 +12,17 @@ describe('Answer Question UseCase Unit Test', () => {
   })
 
   it('should be able to create a question', async () => {
-    const { answer } = await useCase.execute({
+    const result = await useCase.execute({
       content: 'Nova resposta',
       instuctorId: '1',
       questionId: '1',
     })
-
-    expect(answer.content).toEqual('Nova resposta')
-    expect(answer.id).toBeTruthy()
-    expect(answer.authorId).toEqual('1')
-    expect(answer.questionId).toEqual('1')
-    expect(answer.excerpt).toEqual('Nova resposta...')
-    expect(answer.createdAt).toBeTruthy()
+    expect(result.isRight()).toBe(true)
+    expect(result.value?.answer.content).toEqual('Nova resposta')
+    expect(result.value?.answer.id).toBeTruthy()
+    expect(result.value?.answer.authorId).toEqual('1')
+    expect(result.value?.answer.questionId).toEqual('1')
+    expect(result.value?.answer.excerpt).toEqual('Nova resposta...')
+    expect(result.value?.answer.createdAt).toBeTruthy()
   })
 })

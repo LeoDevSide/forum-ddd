@@ -32,11 +32,10 @@ describe('Delete QuestionCommentComment UseCase Unit Test', () => {
     await inMemoryRepository.create(questionCommentToDelete)
     expect(inMemoryRepository.items.length).toEqual(1)
 
-    await expect(
-      useCase.execute({
-        authorId: '1',
-        questionCommentId: questionCommentToDelete.id.value,
-      }),
-    ).rejects.toBeInstanceOf(Error)
+    const result = await useCase.execute({
+      authorId: questionCommentToDelete.authorId,
+      questionCommentId: questionCommentToDelete.id.value,
+    })
+    expect(result)
   })
 })

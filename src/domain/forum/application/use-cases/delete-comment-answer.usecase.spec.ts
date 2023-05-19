@@ -4,6 +4,7 @@ import { UniqueEntityID } from '../../../../core/entities/value-objects/unique-e
 import { InMemoryAnswerCommentsRepository } from '../../../../../test/repositories/in-memory-answer-comments.repository'
 import { DeleteAnswerCommentUseCase } from './delete-comment-answer.usecase'
 import { ExampleAnswerCommentEntityFactory } from '../../../../../test/factories/answer-comment.factory'
+import { NotAllowedError } from './Errors/not-allowed.error'
 
 let inMemoryRepository: InMemoryAnswerCommentsRepository
 let useCase: DeleteAnswerCommentUseCase
@@ -32,11 +33,11 @@ describe('Delete AnswerCommentComment UseCase Unit Test', () => {
     await inMemoryRepository.create(answerCommentToDelete)
     expect(inMemoryRepository.items.length).toEqual(1)
 
-    await expect(
-      useCase.execute({
-        authorId: '1',
-        answerCommentId: answerCommentToDelete.id.value,
-      }),
-    ).rejects.toBeInstanceOf(Error)
+    const result = await useCase.execute({
+      authorId: '1',
+      answerCommentId: answerCommentToDelete.id.value,
+    })
+    expect(result.isLeft()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })
